@@ -1,9 +1,22 @@
-GridOS-backend/
-GridOS-frontend/
-GridOS-infra/
-GridOS-debugging/
-GridOS-physics/
-
 .env
 .env.*
 !.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node
+node_modules/
+.next/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: gridos-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: MORPH_API_KEY
+        sync: false
+      - key: MORPH_BASE_URL
+        sync: false
+      - key: ERCOT_API_KEY
+        sync: false

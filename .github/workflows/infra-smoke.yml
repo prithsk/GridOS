@@ -1,0 +1,40 @@
+name: Infra Smoke
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "Dockerfile"
+      - "docker-compose.yml"
+      - ".env.example"
+      - "DEPLOYMENT.md"
+      - "GridOS-infra/**"
+
+jobs:
+  backend-health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r GridOS-backend/requirements.txt
+
+      - name: Launch backend
+        env:
+          ALLOWED_ORIGINS: "http://localhost:3000"
+        run: |
+          uvicorn main:app --host 0.0.0.0 --port 8000 --app-dir GridOS-backend &
+          sleep 12
+
+      - name: Run infra smoke script
+        shell: pwsh
+        run: |
+          ./GridOS-infra/scripts/smoke.ps1 -BaseUrl http://localhost:8000
