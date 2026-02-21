@@ -1,0 +1,9 @@
+GridOS-backend/
+GridOS-frontend/
+GridOS-infra/
+GridOS-debugging/
+GridOS-physics/
+
+.env
+.env.*
+!.env.example
